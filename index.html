@@ -1,0 +1,1190 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#18120f" />
+    <title>ONE DAY — Caffe Lounge</title>
+    <style>
+      :root {
+        --espresso: #18120f;
+        --ivory: #f4efe6;
+        --sand: #d8cbb8;
+        --champagne: #b89b6d;
+        --line-light: rgba(244, 239, 230, 0.34);
+        --line-dark: rgba(51, 37, 27, 0.2);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: Arial, Helvetica, sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--ivory);
+        color: var(--espresso);
+        font-family: var(--sans);
+      }
+      a { color: inherit; text-decoration: none; }
+      img { max-width: 100%; display: block; }
+      button { font: inherit; }
+
+      .hero {
+        position: relative;
+        isolation: isolate;
+        display: flex;
+        min-height: 100vh;
+        height: 100svh;
+        overflow: clip;
+        color: var(--ivory);
+      }
+
+      .hero__media,
+      .hero__media img,
+      .hero__veil {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .hero__media { z-index: -2; background: var(--espresso); }
+      .hero__media img {
+        display: block;
+        object-fit: cover;
+        object-position: center center;
+        animation: image-in 1.3s ease-out both;
+      }
+
+      .hero__veil {
+        z-index: -1;
+        background: linear-gradient(90deg, rgba(13, 9, 7, 0.58), rgba(13, 9, 7, 0.13) 68%), rgba(13, 9, 7, 0.12);
+      }
+
+      .site-header {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px 22px;
+        border-bottom: 1px solid var(--line-light);
+        background: linear-gradient(180deg, rgba(12, 8, 6, 0.34), transparent);
+      }
+
+      .wordmark {
+        display: grid;
+        gap: 2px;
+        font: 500 11px/1 var(--sans);
+        letter-spacing: 0.18em;
+      }
+      .wordmark span:last-child {
+        font-size: 8px;
+        letter-spacing: 0.2em;
+        opacity: 0.86;
+      }
+
+      .header-link {
+        padding-top: 2px;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.19em;
+      }
+
+      .header-detail {
+        color: rgba(255, 248, 236, 0.78);
+        font-size: 8px;
+        letter-spacing: 0.2em;
+      }
+
+      .hero__content {
+        align-self: center;
+        width: min(100%, 660px);
+        margin: 33px 25px 0;
+      }
+
+      .hero__eyebrow {
+        margin: 0 0 16px;
+        color: var(--sand);
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: 0.25em;
+        animation: fade-up 0.7s 0.25s ease both;
+      }
+
+      h1 {
+        display: grid;
+        margin: 0;
+        font: 400 clamp(58px, 18vw, 164px)/0.8 var(--serif);
+        letter-spacing: -0.055em;
+      }
+
+      h1 span {
+        animation: fade-up 0.85s 0.38s ease both;
+      }
+      h1 small {
+        margin: 13px 0 0 4px;
+        font: 500 clamp(12px, 2.5vw, 20px)/1 var(--sans);
+        letter-spacing: 0.38em;
+        animation: fade-up 0.8s 0.54s ease both;
+      }
+
+      .hero__tagline {
+        margin: 31px 0 28px;
+        font: 400 15px/1.5 var(--sans);
+        letter-spacing: 0.02em;
+        animation: fade-up 0.8s 0.7s ease both;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 52px;
+        align-items: center;
+        gap: 28px;
+        padding: 0 20px;
+        border: 1px solid var(--line-light);
+        color: inherit;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        transition: border-color 0.25s, color 0.25s, background 0.25s, box-shadow 0.25s, transform 0.25s;
+        animation: fade-up 0.85s 0.84s ease both;
+      }
+
+      .button span {
+        color: var(--champagne);
+        font-size: 17px;
+        line-height: 0;
+        transition: transform 0.25s;
+      }
+
+      .button:hover {
+        border-color: var(--champagne);
+        background: rgba(184, 155, 109, 0.12);
+        color: #fff9ed;
+      }
+
+      .button:hover span {
+        transform: translate(3px, 3px);
+      }
+
+      .button.is-attention {
+        border-color: var(--champagne);
+        box-shadow: 0 0 0 6px rgba(184, 155, 109, 0.12);
+        transform: translateY(-2px);
+      }
+
+      .scroll-cue {
+        position: absolute;
+        bottom: max(20px, env(safe-area-inset-bottom));
+        left: 50%;
+        display: grid;
+        gap: 5px;
+        justify-items: center;
+        font-size: 8px;
+        letter-spacing: 0.25em;
+        transform: translateX(-50%);
+        animation: fade-up 0.7s 1.12s ease both;
+      }
+      .scroll-cue i {
+        font-style: normal;
+        font-size: 17px;
+        line-height: 1;
+        animation: bob 1.8s ease-in-out infinite;
+      }
+
+      .categories {
+        position: relative;
+        padding: 82px 22px 100px;
+        background: linear-gradient(rgba(24, 22, 21, 0.78), rgba(24, 22, 21, 0.78)), url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1600&q=80') center/cover fixed;
+        color: #fffaf5;
+      }
+
+      .categories::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(31, 28, 22, 0.45);
+      }
+
+      .section-heading, .section-rule, .category-grid {
+        position: relative;
+        z-index: 1;
+      }
+
+      .section-heading {
+        display: grid;
+        gap: 18px;
+      }
+
+      .section-heading h2 {
+        margin: 0;
+        font: 400 clamp(38px, 10vw, 68px)/0.98 var(--serif);
+        letter-spacing: -0.045em;
+        color: #fffbf9;
+        text-shadow: 0 1px 0 rgba(255,255,255,0.66);
+      }
+
+      .section-heading > p {
+        max-width: 290px;
+        margin: 0;
+        color: #ececec;
+        font-size: 14px;
+        line-height: 1.7;
+        font-weight: 500;
+      }
+
+      .section-rule {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        margin: 33px 0 30px;
+      }
+      .section-rule::before {
+        content: "";
+        display: block;
+        width: 24px;
+        height: 1px;
+        background: var(--champagne);
+      }
+      .section-rule span {
+        flex: 1;
+        height: 1px;
+        background: rgba(247, 246, 245, 0.95);
+      }
+
+      .section-label {
+        margin: 0 0 10px;
+        color: #9eb6a8;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+      }
+
+      .category-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .category-card {
+        position: relative;
+        isolation: isolate;
+        display: flex;
+        min-height: 190px;
+        overflow: hidden;
+        border: 1px solid rgba(249,243,232,0.72);
+        border-radius: 38px 38px 9px 9px;
+        color: var(--ivory);
+        background: #251b16;
+        box-shadow: 0 12px 30px rgba(8,5,3,0.48);
+        animation: fade-up 0.55s var(--card-delay) both;
+        transition: transform 0.25s ease, border-color 0.25s ease;
+      }
+
+      .category-card img {
+        position: absolute;
+        z-index: -2;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+        transition: transform 0.65s ease;
+      }
+
+      .category-card__veil {
+        position: absolute;
+        z-index: -1;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(20,13,8,0.06) 22%, rgba(20,13,8,0.75) 100%);
+        border-radius: inherit;
+        transition: background 0.35s;
+      }
+
+      .category-card__number {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: rgba(196, 194, 192, 0.705);
+        border: 1px solid rgba(244,239,230,0.38);
+        border-radius: 9px;
+        padding: 5px 6px;
+        font-size: 8px;
+        letter-spacing: 0.16em;
+        opacity: 0.82;
+      }
+
+      .category-card__name {
+        align-self: end;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 16px;
+        font: 400 clamp(24px, 5.8vw, 34px)/1 var(--serif);
+        color: #fffaf1;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.72);
+      }
+
+      .category-card__name i {
+        font: 400 17px/1 var(--sans);
+        color: var(--champagne);
+        transition: transform 0.3s;
+      }
+
+      .category-card:hover {
+        transform: translateY(-2px);
+      }
+      .category-card:hover img {
+        transform: scale(1.07);
+      }
+      .category-card:hover .category-card__veil {
+        background: linear-gradient(180deg, rgba(20,13,8,0.12) 22%, rgba(20,13,8,0.87) 100%);
+      }
+      .category-card:hover i {
+        transform: translate(3px, -3px);
+      }
+
+      .site-footer {
+        position: relative;
+        overflow: hidden;
+        padding: 46px 22px 22px;
+        background: rgba(24,18,15,0.9);
+        color: var(--ivory);
+      }
+
+      .site-footer::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(115deg, rgba(246,227,187,0.1), transparent 48%);
+        pointer-events: none;
+      }
+
+      .site-footer > * { position: relative; }
+
+      .footer-top {
+        display: grid;
+        gap: 22px;
+        padding-bottom: 36px;
+        border-bottom: 1px solid var(--line-light);
+      }
+
+      .wordmark--dark {
+        color: var(--ivory);
+      }
+
+      .footer-top p {
+        max-width: 200px;
+        margin: 0;
+        color: var(--sand);
+        font: 400 18px/1.35 var(--serif);
+      }
+
+      .footer-links {
+        display: grid;
+        margin: 0;
+        border-bottom: 1px solid var(--line-light);
+      }
+
+      .footer-links a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: space-between;
+        padding: 18px 0;
+        border-bottom: 1px solid var(--line-light);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        transition: color 0.25s;
+        color: rgba(255,248,236,0.84);
+      }
+
+      .footer-links a:last-child { border: 0; }
+      .footer-links a:hover { color: var(--champagne); }
+      .footer-links svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.55;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .footer-links a span {
+        margin-left: auto;
+        font-size: 17px;
+      }
+
+      .footer-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 9px;
+        padding-top: 20px;
+        color: rgba(255,248,236,0.84);
+        font-size: 8px;
+        line-height: 1.5;
+        letter-spacing: 0.12em;
+      }
+
+      .menu-page {
+        position: relative;
+        isolation: isolate;
+        min-height: 100vh;
+        background: linear-gradient(rgba(18,11,7,0.72), rgba(18,11,7,0.72)), url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1800&q=80') center/cover fixed;
+        color: #fff8ec;
+      }
+
+      .menu-page::before {
+        content: "";
+        position: fixed;
+        z-index: -1;
+        inset: 0;
+        background: rgba(13,8,5,0.84);
+      }
+
+      .menu-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 23px 22px;
+        border-bottom: 1px solid rgba(246,227,187,0.38);
+      }
+
+      .menu-header .wordmark--dark,
+      .menu-header .back-link,
+      .quick-menu-title,
+      .quick-category,
+      .menu-intro h1 {
+        color: #fff8ec;
+      }
+
+      .back-link {
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+      }
+
+      .menu-main {
+        padding: 58px 22px 86px;
+      }
+
+      .quick-menu-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+        color: #765d3e;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+      }
+      .quick-menu-title i {
+        display: block;
+        flex: 1;
+        height: 1px;
+        background: rgba(246,227,187,0.38);
+      }
+      .quick-menu-title small {
+        font-size: 8px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+      }
+
+      .category-rail {
+        display: flex;
+        gap: 9px;
+        overflow-x: auto;
+        margin: 0 -22px 50px;
+        padding: 0 22px 10px;
+        scroll-snap-type: x proximity;
+        scrollbar-width: thin;
+        scrollbar-color: var(--champagne) transparent;
+      }
+
+      .quick-category {
+        position: relative;
+        display: grid;
+        flex: 0 0 96px;
+        gap: 7px;
+        scroll-snap-align: start;
+        font-size: 9px;
+        line-height: 1.2;
+        letter-spacing: 0.04em;
+      }
+
+      .quick-category img {
+        width: 96px;
+        height: 72px;
+        object-fit: cover;
+        border: 1px solid rgba(246,227,187,0.35);
+        border-radius: 20px 20px 6px 6px;
+        filter: saturate(0.78);
+        transition: filter 0.25s, border-color 0.25s, transform 0.25s;
+      }
+
+      .quick-category span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .quick-category:hover img,
+      .quick-category.is-active img {
+        border-color: var(--champagne);
+        filter: saturate(1);
+        transform: translateY(-2px);
+      }
+
+      .quick-category.is-active {
+        color: #fff8ec;
+        font-weight: 600;
+        padding: 7px;
+        border: 1px solid rgba(232,201,144,0.8);
+        border-radius: 26px 26px 9px 9px;
+        background: rgba(111,76,36,0.56);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.38);
+        transform: translateY(-4px);
+      }
+
+      .quick-category.is-active img {
+        width: 100%;
+        border-color: #f3d296;
+        box-shadow: 0 0 0 3px rgba(232,201,144,0.18);
+      }
+      .quick-category.is-active::after {
+        content: "";
+        position: absolute;
+        bottom: -11px;
+        left: 50%;
+        width: 30px;
+        height: 1px;
+        background: #f3d296;
+        transform: translateX(-50%);
+      }
+
+      .menu-intro {
+        position: relative;
+        display: grid;
+        gap: 12px;
+        padding-bottom: 35px;
+        border-bottom: 1px solid rgba(246,227,187,0.38);
+      }
+
+      .menu-intro h1 {
+        font-size: clamp(48px, 13vw, 96px);
+        color: var(--espresso);
+        line-height: 0.88;
+      }
+
+      .menu-intro > p:not(.section-label) {
+        max-width: 245px;
+        margin: 0;
+        color: #e5d8c6;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .menu-intro img {
+        width: 100%;
+        height: 220px;
+        margin-top: 16px;
+        object-fit: cover;
+        filter: saturate(0.8);
+      }
+
+      .menu-intro .section-label {
+        color: #d6c6a6;
+      }
+
+      .product-grid {
+        display: grid;
+        gap: 18px;
+        margin-top: 32px;
+        border: 0;
+      }
+
+      .product-card {
+        position: relative;
+        display: grid;
+        grid-template-columns: 122px 1fr 36px;
+        gap: 14px;
+        align-items: center;
+        width: 100%;
+        min-height: 154px;
+        padding: 0;
+        border: 1px solid rgba(249,243,232,0.5);
+        border-radius: 28px 28px 12px 12px;
+        background: rgba(32,20,13,0.54);
+        color: #fff8ec;
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 0.25s, background 0.25s, transform 0.25s, box-shadow 0.25s;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+      }
+
+      .product-card > img {
+        width: 122px;
+        height: 152px;
+        object-fit: cover;
+        filter: saturate(0.92) contrast(1.06);
+      }
+
+      .product-card__index {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        color: var(--ivory);
+        font-size: 8px;
+        letter-spacing: 0.1em;
+        text-shadow: 0 1px 5px #000;
+      }
+
+      .product-card h2 {
+        margin: 0 0 7px;
+        font: 400 22px/1 var(--serif);
+      }
+
+      .product-card p {
+        margin: 0;
+        display: -webkit-box;
+        overflow: hidden;
+        color: #e5d8c6;
+        font-size: 11px;
+        line-height: 1.45;
+        -webkit-box-orient: vertical;
+      }
+
+      .product-card strong {
+        display: block;
+        margin-top: 9px;
+        color: #f2d7a5;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+      }
+
+      .product-card > b {
+        align-self: end;
+        padding: 0 16px 17px 0;
+        color: #f2d7a5;
+        font: 400 27px/1 var(--serif);
+      }
+
+      .product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 38px rgba(0,0,0,0.45);
+        border-color: var(--champagne);
+        background: rgba(104,73,38,0.65);
+      }
+
+      .product-modal {
+        width: min(92vw, 760px);
+        max-height: 90svh;
+        padding: 0;
+        border: 1px solid rgba(184,155,109,0.6);
+        background: var(--ivory);
+        color: var(--espresso);
+        box-shadow: 0 24px 90px rgba(0,0,0,0.45);
+      }
+
+      .product-modal::backdrop {
+        background: rgba(18,12,9,0.74);
+        backdrop-filter: blur(3px);
+      }
+
+      .modal-close {
+        position: absolute;
+        z-index: 2;
+        top: 12px;
+        right: 12px;
+        width: 38px;
+        height: 38px;
+        border: 1px solid rgba(244,239,230,0.65);
+        background: rgba(20,12,8,0.38);
+        color: var(--ivory);
+        font: 300 30px/1 var(--sans);
+        cursor: pointer;
+      }
+
+      .product-modal > #modal-content {
+        display: grid;
+      }
+
+      .product-modal img {
+        width: 100%;
+        height: 245px;
+        object-fit: cover;
+      }
+
+      .modal-copy {
+        padding: 27px;
+      }
+
+      .modal-copy h2 {
+        margin: 5px 0 9px;
+        font: 400 clamp(38px, 9vw, 58px)/0.93 var(--serif);
+        letter-spacing: -0.04em;
+      }
+
+      .modal-copy strong {
+        color: #80613c;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+      }
+
+      .modal-copy > p:not(.section-label) {
+        margin: 22px 0 14px;
+        color: #615348;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .modal-copy > span {
+        display: block;
+        padding-top: 14px;
+        border-top: 1px solid var(--line-dark);
+        color: #8a7969;
+        font-size: 10px;
+        line-height: 1.5;
+      }
+
+      @keyframes image-in {
+        from {
+          opacity: 0;
+          transform: scale(1.035);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(13px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes bob {
+        50% { transform: translateY(5px); }
+      }
+
+      @media (max-width: 699px) {
+        .header-detail { display: none; }
+        .menu-intro {
+          display: block;
+          padding-bottom: 24px;
+        }
+        .menu-intro .section-label,
+        .menu-intro > p:not(.section-label),
+        .menu-intro > img {
+          display: none;
+        }
+        .menu-intro h1 {
+          margin: 0;
+          font-size: clamp(48px, 15vw, 70px);
+          letter-spacing: -0.045em;
+        }
+        .menu-main {
+          padding-top: 42px;
+        }
+      }
+
+      @media (min-width: 700px) {
+        .site-header {
+          padding: 31px 52px;
+        }
+        .hero__content {
+          margin-left: clamp(52px, 10vw, 172px);
+        }
+        .categories {
+          padding: 128px max(52px, 10vw);
+        }
+        .section-heading {
+          grid-template-columns: 1fr 280px;
+          align-items: end;
+        }
+        .category-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 15px;
+        }
+        .category-card {
+          min-height: 270px;
+        }
+        .site-footer {
+          padding: 62px max(52px, 10vw) 25px;
+        }
+        .footer-top {
+          grid-template-columns: 1fr 1fr;
+        }
+        .footer-links {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .footer-links a {
+          padding: 22px 0;
+          margin-right: 22px;
+          border-bottom: 0;
+        }
+        .footer-links a:not(:last-child) {
+          border-right: 1px solid var(--line-light);
+        }
+        .footer-links a:not(:first-child) {
+          padding-left: 22px;
+        }
+        .menu-header {
+          padding: 30px max(52px, 10vw);
+        }
+        .menu-main {
+          padding: 95px max(52px, 10vw);
+        }
+        .menu-intro {
+          grid-template-columns: 1fr 1fr;
+          align-items: end;
+        }
+        .menu-intro .section-label,
+        .menu-intro h1 {
+          grid-column: 1;
+        }
+        .menu-intro > p:not(.section-label) {
+          grid-column: 1;
+        }
+        .menu-intro img {
+          grid-column: 2;
+          grid-row: 1/4;
+          height: 300px;
+          margin: 0;
+        }
+        .product-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 15px;
+        }
+        .product-card {
+          grid-template-columns: 166px 1fr 42px;
+          min-height: 196px;
+        }
+        .product-card > img {
+          width: 166px;
+          height: 194px;
+        }
+        .product-card h2 {
+          font-size: 32px;
+        }
+        .product-card p {
+          font-size: 14px;
+        }
+        .category-rail {
+          margin-left: 0;
+          margin-right: 0;
+          padding-left: 0;
+          padding-right: 0;
+        }
+        .quick-category {
+          flex-basis: 118px;
+        }
+        .quick-category img {
+          width: 118px;
+          height: 82px;
+        }
+        .product-modal > #modal-content {
+          grid-template-columns: 1fr 1fr;
+        }
+        .product-modal img {
+          height: 100%;
+        }
+        .product-modal .modal-copy {
+          padding: 46px;
+        }
+        .product-modal {
+          min-height: 400px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          scroll-behavior: auto !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <picture class="hero__media" aria-hidden="true">
+          <img id="hero-image" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1800&q=80" alt="" fetchpriority="high" />
+        </picture>
+        <div class="hero__veil"></div>
+
+        <header class="site-header">
+          <a class="wordmark" href="#top" aria-label="ONE DAY CAFFE LOUNGE ana sayfa">
+            <span>ONE DAY</span>
+            <span>CAFFE LOUNGE</span>
+          </a>
+          <span class="header-detail">EST. ONE DAY · PREMIUM LOUNGE</span>
+          <a class="header-link" href="#categories">QR MENU</a>
+        </header>
+
+        <div class="hero__content" id="top">
+          <p class="hero__eyebrow">EST. ONE DAY</p>
+          <h1 id="hero-title"><span>ONE DAY</span><small>CAFFE LOUNGE</small></h1>
+          <p class="hero__tagline">Her yudumda daha iyi bir gün...</p>
+          <a class="button button--outline" href="#categories">MENÜMÜZ <span aria-hidden="true">↘</span></a>
+        </div>
+
+        <a class="scroll-cue" href="#categories" aria-label="Menü kategorilerine git">
+          <span>SCROLL</span><i aria-hidden="true">↓</i>
+        </a>
+      </section>
+
+      <section class="categories" id="categories" aria-labelledby="categories-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">✦ QR MENU ✦</p>
+            <h2 id="categories-title">Kategorilerimiz</h2>
+          </div>
+          <p>Günün her anına eşlik eden özenli tatlar ve içecekler.</p>
+        </div>
+        <div class="section-rule"><span></span></div>
+        <div class="category-grid" id="category-grid" aria-label="Menü kategorileri"></div>
+      </section>
+
+      <section class="menu-page" id="menu-page" aria-live="polite">
+        <header class="menu-header">
+          <a class="wordmark wordmark--dark" href="#top"><span>ONE DAY</span><span>CAFFE LOUNGE</span></a>
+          <a class="back-link" href="#categories">← KATEGORİLER</a>
+        </header>
+
+        <main class="menu-main">
+          <div class="quick-menu-title">
+            <span>HIZLI KATEGORİLER</span>
+            <i></i>
+            <small>← Kaydır</small>
+          </div>
+
+          <nav class="category-rail" id="category-rail" aria-label="Hızlı kategori geçişi"></nav>
+
+          <div class="menu-intro" id="menu-intro"></div>
+          <div class="product-grid" id="product-grid"></div>
+        </main>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top">
+        <a class="wordmark wordmark--dark" href="#top"><span>ONE DAY</span><span>CAFFE LOUNGE</span></a>
+        <p>Her yudumda daha iyi bir gün.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://instagram.com/" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.4" cy="6.7" r="1"></circle>
+          </svg>
+          INSTAGRAM <span>↗</span>
+        </a>
+        <a href="https://wa.me/" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 11.7a8.3 8.3 0 0 1-12.3 7.2L4 20l1.2-4A8.3 8.3 0 1 1 20.5 11.7Z"></path>
+            <path d="M9 8.2c.2-.5.4-.5.7-.5h.6c.2 0 .4.1.5.4l.8 1.9c.1.2.1.4 0 .6l-.5.6c-.2.2-.1.4 0 .6.5.9 1.3 1.7 2.2 2.2.2.1.4.2.6 0l.7-.8c.2-.2.4-.2.6-.1l1.8.8c.3.1.4.3.4.5 0 .3-.1 1.1-.7 1.4-.4.2-1.3.5-3-.3-1-.5-2.3-1.5-3.5-3.3-1-1.6-1.1-2.8-1-3.3Z"></path>
+          </svg>
+          WHATSAPP <span>↗</span>
+        </a>
+        <a href="tel:+900000000000">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7.5 3.8 10 3l1.5 4.8-1.8 1.4a16 16 0 0 0 5.1 5.1l1.4-1.8L21 14l-.8 2.5c-.3 1-1.4 1.5-2.4 1.2A18.1 18.1 0 0 1 6.3 6.2c-.3-1 .2-2.1 1.2-2.4Z"></path>
+          </svg>
+          İLETİŞİM <span>↗</span>
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ONE DAY CAFFE LOUNGE</span>
+        <span>APEXTSOFT YAZILIM — TÜM HAKLARI SAKLIDIR.</span>
+      </div>
+    </footer>
+
+    <dialog class="product-modal" id="product-modal">
+      <button class="modal-close" aria-label="Kapat">×</button>
+      <div id="modal-content"></div>
+    </dialog>
+
+    <script>
+      const siteVisuals = {
+        heroImage: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1800&q=80',
+        categories: [
+          ['kahveler', 'Kahveler', 'photo-1495474472287-4d71bcdd2085'],
+          ['soguk-kahveler', 'Soğuk Kahveler', 'photo-1461023058943-07fcbe16d735'],
+          ['sicak-icecekler', 'Sıcak İçecekler', 'photo-1512568400610-62da28bc8a13'],
+          ['caylar', 'Çaylar', 'photo-1564890369478-c89ca6d9cde9'],
+          ['bitki-caylari', 'Bitki Çayları', 'photo-1544787219-7f47ccb76574'],
+          ['frozen', 'Frozen', 'photo-1553530666-ba11a7da3888'],
+          ['smoothie', 'Smoothie', 'photo-1553530666-ba11a7da3888'],
+          ['milkshake', 'Milkshake', 'photo-1579954115545-a95591f28bfc'],
+          ['limonatalar', 'Limonatalar', 'photo-1621263764928-df1444c5e859'],
+          ['taze-sikimlar', 'Taze Sıkımlar', 'photo-1613478223719-2ab802602423'],
+          ['kokteyller', 'Kokteyller', 'photo-1536935338788-846bb9981813'],
+          ['soft-drinks', 'Soft Drinks', 'photo-1551024709-8f23befc6f87'],
+          ['kahvalti', 'Kahvaltı', 'photo-1533089860892-a7c6f0a88666'],
+          ['omletler', 'Omletler', 'photo-1525351484163-7529414344d8'],
+          ['tostlar', 'Tostlar', 'photo-1528735602780-2552fd46c7af'],
+          ['burgerler', 'Burgerler', 'photo-1568901346375-23c9450c58cd'],
+          ['makarnalar', 'Makarnalar', 'photo-1473093295043-cdd812d0e601'],
+          ['pizzalar', 'Pizzalar', 'photo-1513104890138-7c749659a591'],
+          ['ana-yemekler', 'Ana Yemekler', 'photo-1547592180-85f173990554'],
+          ['salatalar', 'Salatalar', 'photo-1540420773420-3366772f4999'],
+          ['tatlilar', 'Tatlılar', 'photo-1551024506-0bccd828d307'],
+          ['nargile', 'Nargile', 'photo-1520903920243-00d872a2d1c9']
+        ],
+        productImages: [
+          'photo-1495474472287-4d71bcdd2085',
+          'photo-1509042239860-f550ce710b93',
+          'photo-1514432324607-a09d9b4aefdd',
+          'photo-1517256673644-36ad11246d21',
+          'photo-1515003197210-e0cd71810b5f',
+          'photo-1541167760496-1628856ab772',
+          'photo-1501339847302-ac426a4a7cbb',
+          'photo-1521302080334-4bebac2763a6',
+          'photo-1497636577773-f1231844b336',
+          'photo-1495474472287-4d71bcdd2085'
+        ]
+      };
+
+      const imageUrl = (id, width = 1000) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=84`;
+
+      const hero = document.querySelector('#hero-image');
+      if (hero) hero.src = siteVisuals.heroImage;
+
+      const categoryGrid = document.querySelector('#category-grid');
+      if (categoryGrid) {
+        categoryGrid.innerHTML = siteVisuals.categories.map(([slug, name, image], index) => `
+          <a class="category-card" href="#menu-page" data-slug="${slug}" style="--card-delay:${Math.min(index, 8) * 45}ms">
+            <img src="${imageUrl(image)}" alt="${name}" loading="lazy" />
+            <span class="category-card__veil"></span>
+            <span class="category-card__number">${String(index + 1).padStart(2, '0')}</span>
+            <span class="category-card__name">${name}<i>↗</i></span>
+          </a>
+        `).join('');
+      }
+
+      document.querySelectorAll('a[href="#categories"]').forEach((link) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          document.querySelector('#categories').scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      const menuButton = document.querySelector('.button--outline');
+      if (menuButton) {
+        setInterval(() => menuButton.classList.toggle('is-attention'), 2200);
+      }
+
+      function renderCategoryMenu(slug) {
+        const category = siteVisuals.categories.find(([currentSlug]) => currentSlug === slug) || siteVisuals.categories[0];
+        const [currentSlug, categoryName, categoryImage] = category;
+
+        const menuIntro = document.querySelector('#menu-intro');
+        const productGrid = document.querySelector('#product-grid');
+        const categoryRail = document.querySelector('#category-rail');
+
+        if (menuIntro && productGrid && categoryRail) {
+          const labels = ['Signature', 'Classic', 'House', 'Premium', 'Special', 'Fresh', 'Seasonal', 'Artisan', 'One Day', 'Lounge'];
+          document.title = `${categoryName} | ONE DAY`;
+
+          categoryRail.innerHTML = siteVisuals.categories.map(([slugName, name, image]) => `
+            <a class="quick-category ${slugName === currentSlug ? 'is-active' : ''}" href="#menu-page" data-slug="${slugName}">
+              <img src="${imageUrl(image, 240)}" alt="${name}" />
+              <span>${name}</span>
+            </a>
+          `).join('');
+
+          menuIntro.innerHTML = `
+            <p class="section-label">✦ QR MENU ✦</p>
+            <h1>${categoryName}</h1>
+            <p>Günün her anına eşlik eden, özenle hazırlanmış seçimlerimizi keşfedin.</p>
+            <img src="${imageUrl(categoryImage, 1800)}" alt="${categoryName}">
+          `;
+
+          const products = labels.map((label, index) => ({
+            name: `${label} ${categoryName}`,
+            price: `${135 + index * 18} ₺`,
+            image: imageUrl(siteVisuals.productImages[index]),
+            text: `Seçkin malzemeler ve One Day dokunuşuyla hazırlanan özel bir ${categoryName.toLocaleLowerCase('tr-TR')} seçimi.`
+          }));
+
+          productGrid.innerHTML = products.map((product, index) => `
+            <button class="product-card" data-id="${index}" type="button">
+              <img src="${product.image}" alt="${product.name}" loading="lazy">
+              <span class="product-card__index">${String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <h2>${product.name}</h2>
+                <p>${product.text}</p>
+                <strong>${product.price}</strong>
+              </div>
+              <b>+</b>
+            </button>
+          `).join('');
+
+          const dialog = document.querySelector('#product-modal');
+          const modalContent = document.querySelector('#modal-content');
+
+          productGrid.onclick = (event) => {
+            const card = event.target.closest('.product-card');
+            if (!card) return;
+            const product = products[card.dataset.id];
+            modalContent.innerHTML = `
+              <img src="${product.image}" alt="${product.name}">
+              <div class="modal-copy">
+                <p class="section-label">ONE DAY SELECTION</p>
+                <h2>${product.name}</h2>
+                <strong>${product.price}</strong>
+                <p>${product.text}</p>
+                <span>Ürün içeriği ve alerjen bilgisi için ekibimize danışabilirsiniz.</span>
+              </div>
+            `;
+            dialog.showModal();
+          };
+
+          document.querySelector('.modal-close').onclick = () => dialog.close();
+          dialog.onclick = (event) => { if (event.target === dialog) dialog.close(); };
+
+          const menuPage = document.querySelector('#menu-page');
+          if (menuPage) {
+            menuPage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      }
+
+      document.addEventListener('click', (event) => {
+        const categoryLink = event.target.closest('[data-slug]');
+        if (!categoryLink) return;
+
+        const slug = categoryLink.getAttribute('data-slug');
+        if (!slug) return;
+
+        history.pushState(null, '', `#${slug}`);
+        renderCategoryMenu(slug);
+      });
+
+      const hashSlug = location.hash.replace('#', '');
+      const initialCategory = siteVisuals.categories.find(([slug]) => slug === hashSlug)?.[0] || siteVisuals.categories[0][0];
+      renderCategoryMenu(initialCategory);
+
+      window.addEventListener('hashchange', () => {
+        const slug = location.hash.replace('#', '');
+        renderCategoryMenu(slug || siteVisuals.categories[0][0]);
+      });
+    </script>
+  </body>
+</html>
